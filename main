@@ -44,7 +44,7 @@ with sr.Microphone() as source:
         print(text)
         if "what" and "about" and "you" or "how" and "about" and "you" in text:
             speak("I am very good thank you") 
-        elif "information" in text or text2:
+        elif "information" in text:
             speak("you need information to which topic?")
             infor = listen(source)
             speak("one moment i am looking for {} in wikipedia" .format(infor))
