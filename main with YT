@@ -7,13 +7,14 @@ from selenium import webdriver
 import pyttsx3 as p
 from pyttsx3.voice import Voice
 import speech_recognition as sr
+import pyjokes
 
 engine = p.init()
 engine.setProperty('rate', 200)
 voices: List[Voice] = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 r = sr.Recognizer()
-driver = webdriver.Chrome(f"{os.getcwd()}/chromedriver.exe")
+driver = webdriver.Chrome("C:/Program Files/Google/Chrome/chromedriver_win32/chromedriver.exe")
 
 
 def speak(text):
@@ -62,17 +63,21 @@ def main():
             elif any(x in text for x in ["information"]) or all(x in text for x in ["facts"]):
                 speak("you need information to which topic?")
                 infor = listen(source)
-                speak(f"one moment i am looking for {infor} in wikipedia")
+                speak(f"one moment I am looking for {infor} in wikipedia")
+                print(f"{infor} on wikipedia")
                 get_info(infor)
             elif any(x in text for x in ["song"]):
                 speak("which song?")
                 songname = listen(source)
-                speak("one moment im looking for {songname} on youtube")
-                print("playing {songname} on youtube")
+                speak(f"one moment im looking for {songname} on youtube")
+                print(f"playing {songname} on youtube")
                 play(songname)
+            elif any(x in text for x in ["joke"]):
+                joke = pyjokes.get_joke()
+                speak(f"here is a joke for you. {joke}")
             elif text != '':
-                speak("I didn't get that. What can i do for you?")
-
+                speak("I didn't get that. What can I do for you?")
+                speak()
 
 try:
     if __name__ == '__main__':
