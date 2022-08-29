@@ -9,6 +9,7 @@ from pyttsx3.voice import Voice
 import speech_recognition as sr
 import pyjokes
 
+
 engine = p.init()
 engine.setProperty('rate', 200)
 voices: List[Voice] = engine.getProperty('voices')
@@ -60,7 +61,7 @@ def main():
             text = listen(source)
             if all(x in text for x in ["what", "about", "you"]) or all(x in text for x in ["how", "about", "you"]) or all(x in text for x in ["how", "are", "you"]):
                 speak("I am very good thank you")
-            elif any(x in text for x in ["information"]) or all(x in text for x in ["facts"]):
+            elif any(x in text for x in ["information", "facts"]):
                 speak("you need information to which topic?")
                 infor = listen(source)
                 speak(f"one moment I am looking for {infor} in wikipedia")
@@ -77,7 +78,7 @@ def main():
                 speak(f"here is a joke for you. {joke}")
             elif text != '':
                 speak("I didn't get that. What can I do for you?")
-                speak()
+
 
 try:
     if __name__ == '__main__':
@@ -87,3 +88,4 @@ except KeyboardInterrupt:
 finally:
     print("Stopping...")
     driver.quit()
+    
