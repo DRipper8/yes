@@ -70,9 +70,12 @@ def main():
             elif any(x in text for x in ["information", "facts"]):
                 speak("you need information to which topic?")
                 infor = listen(source)
-                speak(f"one moment I am looking for {infor} in wikipedia")
-                print(f"{infor} on wikipedia")
-                get_info(infor)
+                if infor == "":
+                   speak("alright then keep your secrets")
+                else:
+                    speak(f"one moment I am looking for {infor} in wikipedia")
+                    print(f"{infor} on wikipedia")
+                    get_info(infor)
             elif any(x in text for x in ["song"]):
                 speak("which song?")
                 songname = listen(source)
