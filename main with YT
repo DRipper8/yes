@@ -52,6 +52,12 @@ def play(query):
     video.click()
 
 
+def weather():
+    driver.get("url=https://www.weather-forecast.com/locations/Mauensee/forecasts/latest")
+    forecast = driver.find_element("xpath", '/html/body/main/section[3]/div/div/div[2]/div/table/thead/tr[1]/td[1]/p')
+    return forecast.text
+
+
 def main():
     speak("hello sir, how are you today?")
     with sr.Microphone() as source:
@@ -76,6 +82,8 @@ def main():
             elif any(x in text for x in ["joke"]):
                 joke = pyjokes.get_joke()
                 speak(f"here is a joke for you. {joke}")
+            elif all(x in text for x in ["how", "weather"]):
+                speak(f"the weather in Mauensee is, {weather()}")
             elif text != '':
                 speak("I didn't get that. What can I do for you?")
 
@@ -88,4 +96,3 @@ except KeyboardInterrupt:
 finally:
     print("Stopping...")
     driver.quit()
-    
