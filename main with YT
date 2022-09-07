@@ -8,6 +8,7 @@ import pyttsx3 as p
 from pyttsx3.voice import Voice
 import speech_recognition as sr
 import pyjokes
+import pygame
 
 
 engine = p.init()
@@ -16,6 +17,8 @@ voices: List[Voice] = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
 r = sr.Recognizer()
 driver = webdriver.Chrome("C:/Program Files/Google/Chrome/chromedriver_win32/chromedriver.exe")
+pygame.init()
+pygame.mixer.init()
 
 
 def speak(text):
@@ -52,6 +55,18 @@ def play(query):
     video.click()
 
 
+def Gambinopl():
+    lists_of_gabino = os.listdir("C:/Users/Dominik Vogel/PycharmProjects/Traver 4.0/Music/")
+
+    for song in lists_of_gabino:
+        if song.endswith(".mp3"):
+            file_path = "C:/Users/Dominik Vogel/PycharmProjects/Traver 4.0/Music/" + song
+            pygame.mixer.music.load(str(file_path))
+            pygame.mixer.music.play()
+            print("playing Childish Gambino")
+            while pygame.mixer.music.get_busy() == True:
+                continue
+
 def weather():
     driver.get(url="https://www.weather-forecast.com/locations/Mauensee/forecasts/latest")
     forecast = driver.find_element("xpath", '/html/body/main/section[3]/div/div/div[2]/div/table/thead/tr[1]/td[1]/p')
@@ -87,6 +102,9 @@ def main():
                 speak(f"here is a joke for you. {joke}")
             elif all(x in text for x in ["how", "weather"]):
                 speak(f"the weather in Mauensee is, {weather()}")
+            elif any(x in text for x in ["Gambino"]):
+                speak(f"playing childish Gambino.")
+                speak(f"{Gambinopl()}")
             elif text != '':
                 speak("I didn't get that. What can I do for you?")
 
