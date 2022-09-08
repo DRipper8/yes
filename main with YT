@@ -103,8 +103,10 @@ def main():
             elif all(x in text for x in ["how", "weather"]):
                 speak(f"the weather in Mauensee is, {weather()}")
             elif any(x in text for x in ["Gambino"]):
-                speak(f"playing childish Gambino.")
+                speak("playing childish Gambino.")
                 speak(f"{Gambinopl()}")
+            elif any(x in text for x in ["goodbye", "shut up", "stop"]):
+                exit()
             elif text != '':
                 speak("I didn't get that. What can I do for you?")
 
